@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --font-sans: var(--app-font-sans);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 220 20% 20%;
+  --border: 220 20% 85%;
+  --input: 220 20% 85%;
+  --ring: 220 60% 60%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 20%;
+  --primary: 220 60% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 20% 90%;
+  --secondary-foreground: 220 20% 30%;
+  --muted: 220 20% 92%;
+  --muted-foreground: 220 15% 50%;
+  --accent: 220 30% 88%;
+  --accent-foreground: 220 20% 25%;
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --app-font-sans: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  svg, svg * { border: none !important; outline: none !important; }
+  html, body { overflow: hidden; height: 100%; }
+  body { font-family: var(--app-font-sans); -webkit-font-smoothing: antialiased; background: hsl(var(--background)); color: hsl(var(--foreground)); }
+}
+
+/* ── Background ── */
+.phone-bg {
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+/* ── Certificate card ── */
+.cert-card {
+  background: linear-gradient(160deg,
+    #e5ebf6 0%,
+    #e6effe 40%,
+    #e8f0fe 70%,
+    #e4ecf8 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 40px rgba(100,120,200,0.12),
+    0 2px 8px rgba(100,120,200,0.07),
+    0 0 0 0.5px rgba(200,210,235,0.6);
+}
+
+/* ── Trust badge ── */
+.trust-badge {
+  background: rgba(230,232,248,0.5);
+  border: 1px solid rgba(180,188,228,0.55) !important;
+}
+
+/* ── Concentric ring pulse ── */
+@keyframes ring-breathe {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.015); }
+}
+
+.ring-pulse-1 { }
+.ring-pulse-2 { }
+.ring-pulse-3 { }
+
+/* ── Hologram image wrapper ── */
+.holo-wrap {
+  width: 200px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Hologram image: float + hue-shift + brightness shimmer ── */
+@keyframes holo-float {
+  0%   { transform: translateY(0px)  rotate(-1deg) scale(1);    }
+  25%  { transform: translateY(-9px) rotate(1.5deg) scale(1.02); }
+  50%  { transform: translateY(-5px) rotate(-0.5deg) scale(1.01); }
+  75%  { transform: translateY(-11px) rotate(2deg) scale(1.03); }
+  100% { transform: translateY(0px)  rotate(-1deg) scale(1);    }
+}
+
+@keyframes holo-shimmer {
+  0%   { filter: hue-rotate(0deg)   brightness(1)    saturate(1.1) drop-shadow(0 8px 24px rgba(160,140,220,0.35)); }
+  20%  { filter: hue-rotate(18deg)  brightness(1.08) saturate(1.3) drop-shadow(0 8px 28px rgba(120,160,240,0.4)); }
+  40%  { filter: hue-rotate(36deg)  brightness(1.12) saturate(1.4) drop-shadow(0 8px 30px rgba(180,120,240,0.4)); }
+  60%  { filter: hue-rotate(20deg)  brightness(1.06) saturate(1.25) drop-shadow(0 8px 26px rgba(120,200,220,0.38)); }
+  80%  { filter: hue-rotate(8deg)   brightness(1.04) saturate(1.15) drop-shadow(0 8px 24px rgba(160,140,220,0.35)); }
+  100% { filter: hue-rotate(0deg)   brightness(1)    saturate(1.1) drop-shadow(0 8px 24px rgba(160,140,220,0.35)); }
+}
+
+.holo-img {
+  width: 230px;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ── Manage button ── */
+.manage-btn {
+  border-radius: 6px;
+  transition: background 0.15s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.manage-btn:active { background: rgba(0,0,0,0.06); }
+
+/* ── Bottom auth history button ── */
+.bottom-btn {
+  background: rgba(220,225,243,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 0 0.5px rgba(185,195,225,0.4);
+  transition: background 0.15s, transform 0.1s;
+}
+.bottom-btn:active {
+  background: rgba(205,210,232,0.95);
+}
